@@ -8,6 +8,16 @@ new Vue({
             todos: []
         }
     },
+    created() {
+        fetch('/api/todo', {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(todos => {
+                this.todos = todos
+            })
+            .catch(e => console.log(e))
+    },
     methods: {
         addTodo() {
             const title = this.todoTitle.trim()
@@ -40,7 +50,7 @@ new Vue({
                 month: 'long',
                 day: '2-digit'
             }
-            if(withTime){
+            if (withTime) {
                 options.hour = '2-digit'
                 options.minute = '2-digit'
                 options.second = '2-digit'

@@ -3,10 +3,11 @@ const Todo = require('../models/todo')
 const router = Router()
 
 //get todos list
-router.get('/', (req, res) => {
-    try{
-
-    }catch (e) {
+router.get('/', async (req, res) => {
+    try {
+        const todos = await Todo.findAll()
+        res.status(200).json(todos)
+    } catch (e) {
         console.log(e)
         res.status(500).json({
             message: 'Server error'
@@ -16,25 +17,25 @@ router.get('/', (req, res) => {
 
 //create new todos
 router.post('/', async (req, res) => {
-try{
-   const todo = await Todo.create({
-        title: req.body.title,
-        done: false
-    })
-    res.status(201).json({todo})
-}catch (e) {
-    console.log(e)
-    res.status(500).json({
-        message: 'Server error'
-    })
-}
+    try {
+        const todo = await Todo.create({
+            title: req.body.title,
+            done: false
+        })
+        res.status(201).json({todo})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
 })
 
 //change todos
 router.put('/:id', (req, res) => {
-    try{
+    try {
 
-    }catch (e) {
+    } catch (e) {
         console.log(e)
         res.status(500).json({
             message: 'Server error'
@@ -44,9 +45,9 @@ router.put('/:id', (req, res) => {
 
 //delete todos
 router.delete('/:id', (req, res) => {
-    try{
+    try {
 
-    }catch (e) {
+    } catch (e) {
         console.log(e)
         res.status(500).json({
             message: 'Server error'
